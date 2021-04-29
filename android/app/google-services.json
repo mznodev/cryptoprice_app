@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "861967922055",
+    "project_id": "cryptoprice-d073a",
+    "storage_bucket": "cryptoprice-d073a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861967922055:android:3885e4c38eab47fe255922",
+        "android_client_info": {
+          "package_name": "com.mznodev.cryptoprice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861967922055-5fgfbfa4r9esp3l9943558of46c9r1uo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mznodev.cryptoprice",
+            "certificate_hash": "60e57b3fb7a4fce58704b0bb6ac310511d3a0b40"
+          }
+        },
+        {
+          "client_id": "861967922055-v5kto12ra4nv3s4mf8gm455f6a3gncic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuPgzRnTbfJ2NiXo2s0iyOpwmtqUUU_S4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861967922055-v5kto12ra4nv3s4mf8gm455f6a3gncic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
