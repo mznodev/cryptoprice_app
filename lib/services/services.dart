@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:cryptoprice_app/classes/CryptoCoinsClass.dart';
+import 'package:cryptoprice_app/classes/NewsClass.dart';
 import 'package:cryptoprice_app/classes/RatesEURClass.dart';
 import 'package:http/http.dart' as http;
 import '../classes/ConverterUSDtoEURClass.dart';
@@ -98,6 +99,21 @@ Future<RatesEURClass> getCoinUSDtoEUR2() async {
     // Si la llamada al servidor fue exitosa, analiza el JSON
     print(json.decode(response.body));
     return RatesEURClass.fromJson(json.decode(response.body));
+  } else {
+    // Si la llamada no fue exitosa, lanza un error.
+    throw Exception('Failed to load post');
+  }
+}
+
+
+Future<NewsClass> getLastestsNews() async {
+  // https://api.coincap.io/v2/assets
+  final response = await http.get(Uri.parse("https://newsdata.io/api/1/news?apikey=pub_674ca9c22e8ca6dd2837c7c04ae6382a775&category=business&language=en"));
+
+  if (response.statusCode == 200) {
+    // Si la llamada al servidor fue exitosa, analiza el JSON
+    print(json.decode(response.body));
+    return NewsClass.fromJson(json.decode(response.body));
   } else {
     // Si la llamada no fue exitosa, lanza un error.
     throw Exception('Failed to load post');

@@ -1,27 +1,27 @@
 import 'dart:convert';
-
-import 'package:cryptoprice_app/screens/news/NewsPage.dart';
+import 'package:cryptoprice_app/classes/NewsClass.dart';
+import 'package:cryptoprice_app/classes/WidgetsKeys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cryptoprice_app/classes/ConverterUSDtoEURClass.dart';
-import 'package:cryptoprice_app/classes/CryptoCoinsClass.dart';
-import 'package:cryptoprice_app/screens/authenticate/login.dart';
 import 'package:cryptoprice_app/services/services.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:cryptoprice_app/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
 
-class MyHomePage extends StatefulWidget {
+class MyNewsPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyNewsPageState createState() => _MyNewsPageState();
 }
 
-var refreshKey = new GlobalKey<RefreshIndicatorState>();
+var refreshNewsKey = new GlobalKey<RefreshIndicatorState>();
+
+
+
 Random random = new Random();
 int limit = random.nextInt(10);
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyNewsPageState extends State<MyNewsPage> {
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<CryptoCoin> bitcoin = getCoins();
+  Future<NewsClass> LastestsNews = getLastestsNews();
   var formatterPrice = NumberFormat.currency(locale: "es_ES", symbol: "€");
   var formatterDecimals = NumberFormat("###.00", "es_ES");
   var formaterPercentage =
@@ -68,16 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new MyCryptoPriceWidget(),
       ),
       body: Center(
-        child: FutureBuilder<CryptoCoin>(
-          future: bitcoin,
+        child: FutureBuilder<NewsClass>(
+          future: LastestsNews,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List coins = snapshot.data.data;
+              List<Results> news = snapshot.data.results;
+
               return RefreshIndicator(
                   key: new GlobalKey<RefreshIndicatorState>(),
                   onRefresh: refreshList,
                   child: ListView.builder(
-                      itemCount: coins.length,
+                      itemCount: news.length,
                       itemBuilder: (BuildContext context, int index) {
                         // Whatever sort of things you want to build
                         // with your Post object at yourPosts[index]:
@@ -87,46 +88,35 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: <Widget>[
                               ListTile(
                                 title: Text(
-                                  coins[index].id.toString(),
+                                  news[index].title,
                                   style: Theme.of(context).textTheme.headline3,
                                 ),
                               ),
 
                               new Text(
-                                  double.parse(coins[index].changePercent24Hr)
-                                          .toStringAsPrecision(2) +
-                                      "%",
+                                  news[index].description,
                                   textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: double.parse(
-                                                coins[index].changePercent24Hr)
-                                            .isNegative
-                                        ? Colors.red[600]
-                                        : Colors.green[600],
-                                  )),
+                                  ),
                               new Center(
                                   child: eur == null
                                       ? new Text("No data")
                                       : new Text(
                                           formatterPrice
                                               .format(convertMultiply(
-                                                  double.parse(
-                                                      coins[index].priceUsd),
+                                                  double.parse("1"),
                                                   double.parse(eur)))
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline4)),
-                              //new Center(child: new Text("prueba")),
-                              // new Text(new_data[index]["${index+1}"][1]['time']),
+
                             ],
                           ),
                         );
                         //return Text(coins[index].priceUsd.toString());
                       }));
             } else if (snapshot.hasError) {
-              return Text("ERROR:" + "${snapshot.error}");
+              return Text("ERROR Snapshot:" + "${snapshot.error}");
             }
 
             // Por defecto, muestra un loading spinner
@@ -139,10 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> refreshList() async {
-    refreshKey.currentState?.show(atTop: false);
+    refreshNewsKey.currentState?.show(atTop: false);
     await Future.delayed(Duration(seconds: 2));
     setState(() {
-      bitcoin = getCoins();
+      LastestsNews = getLastestsNews();
     });
   }
 }

@@ -195,7 +195,7 @@ class Login extends StatelessWidget {
       try {
         // Trigger the authentication flow
         final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-
+        print(googleUser);
         // Obtain the auth details from the request
         final GoogleSignInAuthentication googleAuth =
             await googleUser.authentication;
@@ -208,6 +208,7 @@ class Login extends StatelessWidget {
 
         // Once signed in, return the UserCredential
         await auth.signInWithCredential(credential);
+
         return null;
       } on FirebaseAuthException catch (e) {
         print(e.code);
