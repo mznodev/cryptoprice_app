@@ -33,13 +33,13 @@ class NewsClass {
 class Results {
   String title;
   String link;
-  Null keywords;
+  List<dynamic> keywords;
   List<String> creator;
-  Null videoUrl;
+  String videoUrl;
   String description;
   String content;
   String pubDate;
-  Null imageUrl;
+  String imageUrl;
   String sourceId;
 
   Results(

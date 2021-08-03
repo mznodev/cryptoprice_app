@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cryptoprice_app/classes/NewsClass.dart';
 import 'package:cryptoprice_app/classes/WidgetsKeys.dart';
+import 'package:cryptoprice_app/screens/news/NewsDetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cryptoprice_app/services/services.dart';
@@ -83,32 +84,29 @@ class _MyNewsPageState extends State<MyNewsPage> {
                         // Whatever sort of things you want to build
                         // with your Post object at yourPosts[index]:
                         return Card(
-                          child: new Column(
+                          child:  new Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
                               ListTile(
                                 title: Text(
-                                  news[index].title,
-                                  style: Theme.of(context).textTheme.headline3,
+                                  news[index].title??'No Data',
+                                  style: Theme.of(context).textTheme.headline6,
+
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyNewsDetailPage(dataNews: news[index])),
+                                  );
+                                   },
                               ),
 
                               new Text(
-                                  news[index].description,
+                                  news[index].description??'No Data',
                                   textAlign: TextAlign.end,
                                   ),
-                              new Center(
-                                  child: eur == null
-                                      ? new Text("No data")
-                                      : new Text(
-                                          formatterPrice
-                                              .format(convertMultiply(
-                                                  double.parse("1"),
-                                                  double.parse(eur)))
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline4)),
+
 
                             ],
                           ),

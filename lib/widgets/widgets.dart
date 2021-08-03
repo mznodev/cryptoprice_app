@@ -78,7 +78,7 @@ class MyDrawerWidget extends StatelessWidget {
               // Navigator.pop(context);
             },
           ),
-          ListTile(
+         /*  ListTile(
             title: new RichText(
               text: TextSpan(
                 children: [
@@ -99,7 +99,7 @@ class MyDrawerWidget extends StatelessWidget {
               // Then close the drawer
               Navigator.pop(context);
             },
-          ),
+          ), */
           ListTile(
 
             title: new RichText(
@@ -128,7 +128,7 @@ class MyDrawerWidget extends StatelessWidget {
               // Navigator.pop(context);
             },
           ),
-          ListTile(
+          /* ListTile(
             title: new RichText(
               text: TextSpan(
                 children: [
@@ -148,7 +148,7 @@ class MyDrawerWidget extends StatelessWidget {
               // Then close the drawer
               Navigator.pop(context);
             },
-          ),
+          ), */
           ListTile(
             title: new RichText(
               text: TextSpan(
